@@ -342,7 +342,9 @@ var lightApp = angular.module('lightApp', ['angular-underscore/filters', 'schema
   ];
   $scope.model = {
     numberselect: 1,
-    staticmultiselect: ['three', 'one']
+    staticmultiselect: ['three', 'one'],
+    asyncselect: 'json-value1',
+    staticselect: 'one'
   };
   $scope.submitted = function(form){
     $scope.$broadcast('schemaFormValidate')

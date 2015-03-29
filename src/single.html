@@ -3,7 +3,7 @@
   <div class="form-group" ng-init="select_model.selected=select_models[0]">
     <ui-select ng-model="select_model.selected" ng-controller="UiSelectController"  ng-if="!(form.options.tagging||false)" theme="bootstrap" ng-disabled="form.disabled" on-select="$$value$$=$item.value" class="{{form.options.uiClass}}">
       <ui-select-match placeholder="{{form.placeholder || form.schema.placeholder || ('placeholders.select' | translate)}}">{{select_model.selected.label}}</ui-select-match>
-      <ui-select-choices refresh="fetchResult(form.schema, form.options, $select.search)"
+      <ui-select-choices refresh="fetchResult(form.schema, form.options, $select.search, $$value$$)"
              refresh-delay="form.options.refreshDelay" group-by="form.options.groupBy"  repeat="item in form.schema.items | propsFilter: {label: $select.search, description: (form.options.searchDescriptions===true ? $select.search : 'NOTSEARCHINGFORTHIS') }">
                 <div ng-bind-html="item.label | highlight: $select.search"></div>
       <div ng-if="item.description"> 

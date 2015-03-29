@@ -150,7 +150,7 @@ angular.module('schemaForm').config(
   })
   .controller('UiSelectController', ['$scope', '$http', function($scope, $http) {
     
-    $scope.fetchResult = function (schema, options, search) {
+    $scope.fetchResult = function (schema, options, search, selected) {
         if(options) {
           if (options.callback) {
               schema.items = options.callback(schema, options, search);
@@ -182,6 +182,20 @@ angular.module('schemaForm').config(
               return options.async.call(schema, options, search).then(
                   function (_data) {
                       schema.items = _data.data;
+
+                      if(!schema.$$initialized$$) {
+                        for(var i in _data.data) {
+                          var obj = _data.data[i];
+                          if(obj.value == selected) {
+                            $scope.ngModel.$setViewValue(selected);
+                            $scope.select_model.selected = obj;
+                            schema.$$initialized$$ = true;
+                            break;
+                          }
+                        }
+                      }
+                      // console.log($scope.$parent.select_model);
+                      // console.log(selected, schema.$$initialized$$);
                       // console.log('items', schema.items);
                   },
                   function (data, status) {
