@@ -156,13 +156,13 @@ angular.module('schemaForm').config(
         if(options) {
           if (options.callback) {
               schema.items = options.callback(schema, options, search);
-              console.log('items', schema.items);
+              // console.log('items', schema.items);
           }
           else if (options.http_post) {
               return $http.post(options.http_post.url, options.http_post.parameter).then(
                   function (_data) {
                       schema.items = _data.data;
-                      console.log('items', schema.items);
+                      // console.log('items', schema.items);
                   },
                   function (data, status) {
                       alert("Loading select items failed (URL: '" + String(options.http_post.url) +
@@ -173,7 +173,7 @@ angular.module('schemaForm').config(
               return $http.get(options.http_get.url, options.http_get.parameter).then(
                   function (_data) {
                       schema.items = _data.data;
-                      console.log('items', schema.items);
+                      // console.log('items', schema.items);
                   },
                   function (data, status) {
                       alert("Loading select items failed (URL: '" + String(options.http_get.url) +
@@ -184,7 +184,7 @@ angular.module('schemaForm').config(
               return options.async.call(schema, options, search).then(
                   function (_data) {
                       schema.items = _data.data;
-                      console.log('items', schema.items);
+                      // console.log('items', schema.items);
                   },
                   function (data, status) {
                       alert("Loading select items failed(Options: '" + String(options) +
