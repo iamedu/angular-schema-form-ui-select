@@ -151,6 +151,7 @@ angular.module('schemaForm').config(
     };
   })
   .controller('UiSelectController', ['$scope', '$http', function($scope, $http) {
+    $scope.$$initialized$$ = false;
     
     $scope.fetchResult = function (schema, options, search, selected) {
         if(options) {
@@ -185,13 +186,13 @@ angular.module('schemaForm').config(
                   function (_data) {
                       schema.items = _data.data;
 
-                      if(!schema.$$initialized$$) {
+                      if(!$scope.$$initialized$$) {
                         for(var i in _data.data) {
                           var obj = _data.data[i];
                           if(obj.value == selected) {
                             $scope.ngModel.$setViewValue(selected);
                             $scope.select_model.selected = obj;
-                            schema.$$initialized$$ = true;
+                            $scope.$$initialized$$ = true;
                             break;
                           }
                         }
