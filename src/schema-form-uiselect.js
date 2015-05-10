@@ -55,7 +55,20 @@ angular.module('schemaForm').config(
       restrict: "A",
       scope: {},
       replace: true,
-      controller: ['$scope', function($scope)  {
+      controller: ['$rootScope', '$scope', 'sfSelect', function($rootScope, $scope, sfSelect)  {
+        $rootScope.$on('jc-ui-select', function (event, model) {
+          var value = sfSelect($scope.$parent.form.key, model);
+          var items = $scope.$parent.form.schema.items;
+          for(var i in items) {
+            var obj = items[i];
+            if(obj.value == value) {
+              $scope.$parent.ngModel.$setViewValue(value);
+              $scope.$parent.select_model.selected = obj;
+              $scope.$parent.$$initialized$$ = true;
+              break;
+            }
+          }
+        });
         $scope.$parent.$watch('select_model.selected',function(){
           if($scope.$parent.select_model.selected != undefined) {
             $scope.$parent.insideModel = $scope.$parent.select_model.selected.value;
